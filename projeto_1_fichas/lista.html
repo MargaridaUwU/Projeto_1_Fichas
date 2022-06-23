@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <p>{{ texto }}</p>
+        <p>{{ tarefas }}</p> -->
+        <h2>Lista de tarefas</h2>
+        <input v-on:keyup.enter="insereTarefa(texto)" type="text" v-model="texto" placeholder="Insira uma tarefa">
+        <!-- <button v-on:click="tarefas.push(texto)">Inserir</button> -->
+        <button v-on:click="insereTarefa(texto)">Inserir</button>
+        <!-- tarefas.unshift(texto) -> A tarefa é adicionada no inico da lista -->
+        <ul>
+            <li v-for="elemento in tarefas" :class="{realizada: elemento.realizada, prioritario: elemento.prioritario}"
+            @click="realizaTarefa()">{{elemento.nome}}</li>
+        </ul>
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                texto: '',
+                tarefas: [{
+                    nome:"Exercícios de HTML",
+                    prioritario:true,
+                    realizada: false
+                },{
+                    nome:"Exercícios de CSS",
+                    prioritario:false,
+                    realizada: true
+                },{
+                    nome:"Exercícios de Javascript",
+                    prioritario:false,
+                    realizada: false
+                },{
+                    nome:"Exercícios de VueJS",
+                    prioritario:false,
+                    realizada: false
+                },{
+                    nome:"Juntar tudo no Projeto 1",
+                    prioritario:false,
+                    realizada: false
+                }]
+                }
+            },
+            methods:{
+                realizaTarefa:function(texto){
+                    elemento.realizada=!elemento.realizada
+                },
+                insereTarefa:function(texto){
+                    // if(this.texto == ""){
+                    //     return false;
+                    // }
+                    // else{
+                    //     this.tarefas.push(this.texto);
+                    // }
+                    
+                    if(!!texto){
+                        this.tarefas.push({
+                            nome:texto,
+                            prioritario:false,
+                            realizado:false
+                        })
+                    }
+                    this.texto= ""
+                }
+            }
+        }).mount('#app')
+    </script>
+    <style>
+        .realizada{
+            text-decoration: line-through;
+            color: gray;
+        }
+        .prioritario{
+            color: red;
+        }
+    </style>
+        
+</body>
+</html>
